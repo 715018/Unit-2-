@@ -16,10 +16,33 @@ public class DetectCollisions : MonoBehaviour
 
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-        Destroy(other.gameObject);
-    }
+        if (other.gameObject.name == "Player")
+        {
+            Debug.Log("Game Over!");
+        }
+        else if (other.gameObject.name == "Animal_Doe_01(Clone)")
+        {
+            PlayerController.addScore();
+        }
+        
+         else if (other.gameObject.name == "Animal_Fox_01(Clone)")
+        {
+            PlayerController.addScore();
+        }
 
+        else if (other.gameObject.name == "Animal_Moose_02(Clone)")
+        {
+            PlayerController.addScore();
+        }
+
+        else
+        {
+            Destroy(gameObject);
+            Destroy(other.gameObject);
+
+        }
+    }
 }
