@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class DetectCollisions : MonoBehaviour
 {
+
+    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
-
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -19,30 +21,16 @@ public class DetectCollisions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player")
+       if (other.CompareTag("Player"))
         {
-            Debug.Log("Game Over!");
+            gameManager.AddLives(-1);
+            Destroy(gameObject);
         }
-        else if (other.gameObject.name == "Animal_Doe_01(Clone)")
+       else if (other.CompareTag("Animal"))
         {
-            PlayerController.addScore();
-        }
-        
-         else if (other.gameObject.name == "Animal_Fox_01(Clone)")
-        {
-            PlayerController.addScore();
-        }
-
-        else if (other.gameObject.name == "Animal_Moose_02(Clone)")
-        {
-            PlayerController.addScore();
-        }
-
-        else
-        {
+            gameManager.AddScore(1);
             Destroy(gameObject);
             Destroy(other.gameObject);
-
         }
     }
 }
